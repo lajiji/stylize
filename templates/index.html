@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +8,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}首页{% endblock %}</title>
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    {% endblock %}
+
 </head>
 
 <body>
     {% block content %}
-    <h1>欢迎登录</h1>u
+    
+    <div class="col-md-4 col-md-offset-4">
+        <div class="index">
+            <a href="{% url 'picture' %}" class="btn btn-default" id="btn">图片水墨风格化</a>
+            <a href="{% url 'video' %}" class="btn btn-default" id="btn">视频水墨风格化</a>
+        </div>  
+    </div>
     {% endblock %}
 
 

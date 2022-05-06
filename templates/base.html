@@ -10,7 +10,10 @@
 
   <!-- Bootstrap -->
   <link href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+ 
   {% block css %}{% endblock %}
+
+  
 </head>
 
 <body>
@@ -54,5 +57,7 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
 </body>
+{% block custom_js %}
+{% endblock %}
 
 </html>

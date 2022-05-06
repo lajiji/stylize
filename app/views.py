@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
-from app.models import User  
+from app.models import User, PictureFile
 from .forms import UserForm, RegisterForm
 import hashlib
 from django.http import HttpResponse
+from sympy import ExactQuotientFailed, re
     
 # 登录
 def login(request):
@@ -85,3 +86,64 @@ def hash_code(s, salt='mysite_login'):
 def index(request):
     pass
     return render(request, 'index.html', locals())
+
+def picture(request):
+    if request.method == "GET":
+        return render(request, 'picture.html')
+    title = request.POST['title']
+    file = request.FILES['picture']
+    try:
+        pf = PictureFile.objects.create(title=title,picture=file)
+        request.session['pf'] = pf.picture.url
+    except ExactQuotientFailed as e:
+        return HttpResponse('上传失败！')
+    return redirect('/stylize')
+
+def video(request):
+    if request.method == "GET":
+        return render(request, 'video.html')
+    else:
+        title = request.POST['video']
+        file = request.FILES['picture']
+        try:
+            pf = PictureFile.objects.create(title=title, picture=file)
+            request.session['pf'] = pf.picture.url
+        except ExactQuotientFailed as e:
+            return HttpResponse('上传失败')
+        return redirect('/stylize')
+
+def upload(request):
+    if request.method == "POST":
+        title = request.POST['title']
+        url = '/stylize/'
+        if request.FILES.get('picture', False):
+            file = request.FILES['picture']
+            url = url + 'picture'
+        elif request.FILES.get('video', False):
+            file = request.FILES['video']
+            url = url + 'video'
+        try:
+            pf = PictureFile.objects.create(title=title, picture=file)
+            request.session['pf'] = pf.picture.url
+        except ExactQuotientFailed as e:
+            return HttpResponse('上传失败')
+        return redirect(url)
+
+# 视频预处理
+
+def preprocess(request):
+    if request.method == "POST":
+        command = ''
+        return
+
+# 处理视频的风格化
+def stylize(request, type):
+    if request.method == "POST":
+        originPath = request.POST['originPath']
+        print(originPath)
+        # todo 这里根据type做风格化处理
+        return render(request, 'stylize.html', context={'path':'somepath', 'type':type, 'res':['/media/001.png']})
+    else:
+        return render(request, 'stylize.html', context={'type': type})
+
+

@@ -1,0 +1,19 @@
+body {
+    background-image: url(../img/0506_4.jpg);
+    background-repeat: repeat-y;
+    background-size: cover;
+  }
+.index{
+    max-width: 200px;
+    max-height: 50px;
+    padding: 30px;
+    margin: 10px auto;
+}
+#btn{
+    /* background-color: #fe938c; */
+    /* background-color:#f4c2c2; */
+    background-color:#e4717a;
+    opacity: 0.7;
+    color: aliceblue;
+    margin: 10px;
+}

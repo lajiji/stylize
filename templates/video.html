@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %} 视频 | 第一步 {% endblock %}</title>
+  {% block css %}
+  <link rel="stylesheet" href="{% static 'css/uploadFile.css' %}">
+  {% endblock %}
+</head>
+<body>
+  {% block content %}
+  <div class="main" id="step-one">
+      <p>第一步：</p>
+      <form action="/upload/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-part">
+            <label class="form-label">标题</label>
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+        <div class="form-part">
+            <label class="form-label">上传视频</label>
+            <input type="file" class="form-control" name="video" id="video-file"
+            class="btn btn-default" >
+        </div>
+        <div class="form-part">
+            <video src="" id="video" width="320" height="240" autoplay></video>
+        </div>
+        <div class="form-part">
+            {% comment %}
+            <input type="submit" value="上传
+            " class="submit-btn btn btn-primary">
+            {% endcomment %}
+            <input type="submit" value="下一步" class="btn btn-default">
+            <a href="{% url 'index' %}" class="btn btn-default">上一步</a>
+            {% comment %}
+            <a href="" class="btn btn-default" id="step-next">下一步</a>
+            {%  endcomment %}
+        </div>
+      </form>
+  </div>
+  {% endblock %}
+</body>
+{% block custom_js %}
+<script src="{%  static 'js/uploadFile.js' %}"></script>
+{% endblock %}
+</html>

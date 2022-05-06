@@ -1,5 +1,7 @@
 from django.db import models
 from django.forms import CharField, DateTimeField, EmailField, FileField
+import base64
+import time
 
 # Create your models here.
 
@@ -21,5 +23,10 @@ class User(models.Model):
         verbose_name = '用户'
         verbose_name_plural = '用户'
 
+def rePath(instance, fileName):
+    return '{0}.{1}'.format(str(base64.b64encode((instance.title+fileName+str(time.time)).encode("utf-8")), "utf-8"), fileName.split('.')[-1])
+class PictureFile(models.Model):
+    title = models.CharField('图片名', max_length=11)
+    picture = models.FileField(upload_to = rePath)
 
 

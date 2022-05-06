@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}第二步{% endblock %}</title>
+  {% block css %}
+  <link rel="stylesheet" href="{% static 'css/uploadFile.css' %}">
+  <link rel="stylesheet" href="{% static 'css/paint.css' %}">
+  <link rel="stylesheet" href="{% static 'icon/iconfont/iconfont.css' %}">
+  {% endblock %}
+</head>
+
+<body>
+
+  {% block content %}
+  <div id="styleRes" class="main">
+      <form action="/stylize/{{ type }}" method="post" id="pic-form">
+          <div id="step-two">
+              <p>第二步：</p>
+              {% csrf_token %}
+              <div class="form-part">
+                  <input name="originPath" value={{request.session.pf}} hidden>
+                  <input type="submit" class="btn btn-default" id="styleize" value="风格化">
+              </div>
+          </div>
+      </form>
+      {% comment %} 返回上一步 {% endcomment %}
+      <form action="/{{ type }}" method="get">
+          <div class="form-part">
+              <button class="btn btn-default" id="step-forward">上一步</button>
+          </div>
+      </form> 
+  </div>
+  <div id="resList">
+      {% if res %}
+      {% if type == 'video' %}
+      {% for path in res %}
+      <div class="preview-{{ forloop.counter0 }}">
+          <button class="btn-save" id="save-{{ forloop.counter0 }}">保存</button>
+          <button class="btn-edit" data-originPath="{{ path }}" id="edit-{{ forloop.counter0 }}">编辑</button>
+          <!-- todo确定下图片大小 -->
+          <img src="{{ path }}" style="width: 150px; height: 100px;" id="pic-{{ forloop.counter0 }}">
+      </div>
+      {% endfor %}
+  </div> 
+  <div id="editor" style="display: none;">
+    <button id="quitEdit">返回</button>
+    <canvas id="drawing-board"></canvas>
+    <div class="color-group">
+        <ul>
+            <li id="white" class="color-item" style="background-color: white;"></li>
+            <li id="black" class="color-item" style="background-color: black;"></li>
+            <li id="red" class="color-item" style="background-color: red;"></li>
+            <li id="blue" class="color-item" style="background-color: blue;"></li>
+            <li id="yellow" class="color-item" style="background-color: yellow;"></li>
+            <li id="green" class="color-item" style="background-color: green;"></li>
+            <li id="gray" class="color-item" style="background-color: gray;"></li>
+        </ul>
+    </div>
+    <div id="range-wrap">
+        <input type="range" id="range" min="1" max="30" value="5" title="调整笔刷粗细">
+    </div>
+    <div class="tools">
+        <button id="brush" class="active" title="画笔"><i class="iconfont icon-huabi"></i></button>
+        <button id="eraser" title="橡皮擦">
+            <i class="iconfont icon-xiangpi"></i></button>
+        <button id="clear" title="清空">
+            <i class="iconfont icon-qingchu"></i></button>
+        <button id="undo" title="撤销">
+            <i class="iconfont icon-chexiao"></i></button>
+        <button id="save" title="保存">
+            <i class="iconfont icon-baocun"></i></button>      
+    </div>
+  </div>
+  {% elif type == 'picture' %}
+  <!-- todo 确定下图片大小 -->
+  <img src="{{ res }}" style="width: 100px; height: 100px;">
+  {% endif %}
+  {% endif %}
+  {% endblock %}
+</body>
+{% block custom_js %}
+<script src="{%  static 'js/paint.js' %}"></script>
+<script src="{%  static 'js/uploadFile.js' %}"></script>
+<script src="{%  static 'js/imgEdit.js' %}"></script>
+{% endblock %}
+</html>

@@ -60,14 +60,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stylize.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'style_user',
+        'NAME': 'stylize',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '',
@@ -123,3 +122,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

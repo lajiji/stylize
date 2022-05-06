@@ -1,0 +1,43 @@
+body {
+  background-image: url(../img/0506_4.jpg);
+  background-repeat: repeat-y;
+  background-size: cover;
+  margin: 0px;
+  padding: 0px;
+
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 360px;
+}
+.form-part {
+  display: flex;
+  margin: 10px;
+  align-items: end;
+}
+.form-label {
+  width: 80px;
+  text-align: right;
+  padding-right: 10px;
+}
+.form-control {
+  width: 260px;
+}
+.submit-btn {
+  margin: auto;
+}
+#image {
+  /* width: 600px;
+  height: 600px; */
+  background: #cccccc;
+}
+#video {
+  /* width: 390px;
+  height: 280px; */
+  background: #cccccc;
+}
+.display > img {
+  margin: auto;
+}
